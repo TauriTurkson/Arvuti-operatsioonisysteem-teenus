@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" 
+	xmlns:tns="http://www.ttu.ee/idu0075/2015/ws/arvuti" 
+	targetNamespace="http://www.ttu.ee/idu0075/2015/ws/arvuti">
+	<wsdl:types>
+		<xs:schema  targetNamespace="http://www.ttu.ee/idu0075/2015/ws/arvuti" elementFormDefault="qualified">
+			<xs:complexType name ="opsysType">
+				<xs:sequence>
+					<xs:element name="id" type="xs:integer"/>
+					<xs:element name="name" type="xs:string"/>
+					<xs:element name="code" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name ="arvutiOpsysType">
+				<xs:sequence>
+					<xs:element name="opsys" type="tns:opsysType"/>
+					<xs:element name="quantity" type="xs:double"/>
+					<xs:element minOccurs="0" maxOccurs="1" name="version">
+							<xs:simpleType>
+								<xs:restriction base="xs:decimal">
+									<xs:fractionDigits value="2"/>
+								</xs:restriction>
+							 </xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name ="arvutiOpsysListType">
+				<xs:sequence>
+					<xs:element minOccurs="0" maxOccurs="unbounded" name="arvutiOpsys" type="tns:arvutiOpsysType"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name ="arvutiType">
+				<xs:sequence>
+					<xs:element name="id" type="xs:integer"/>
+					<xs:element name="arvutiNo" type="xs:string"/>
+					<xs:element name="userName" type="xs:string"/>
+					<xs:element name="arvutiOpsysList" type="tns:arvutiOpsysListType"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="getOpsysRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="token" type="xs:string"/>
+						<xs:element name="id" type="xs:integer"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getOpsysResponse" type="tns:opsysType"/>
+			<xs:element name="addOpsysRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="token" type="xs:string"/>
+						<xs:element name="name" type="xs:string"/>
+						<xs:element name="code" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="addOpsysResponse" type="tns:opsysType"/>
+			<xs:element name="getOpsysListRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="token" type="xs:string"/>
+						<xs:element name="name" type="xs:string"/>
+						<xs:element minOccurs="0" maxOccurs="1" name="version">
+							<xs:simpleType>
+								<xs:restriction base="xs:decimal">
+									<xs:fractionDigits value="2"/>
+								</xs:restriction>
+							 </xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getOpsysListResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" maxOccurs="unbounded" name="opsys" type="tns:opsysType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getArvutiRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="token" type="xs:string"/>
+						<xs:element name="id" type="xs:integer"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getArvutiResponse" type="tns:arvutiType"/>
+			<xs:element name="addArvutiRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="token" type="xs:string"/>
+						<xs:element name="arvutiNo" type="xs:string"/>
+						<xs:element name="userName" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="addArvutiResponse" type="tns:arvutiType"/>
+			<xs:element name="getArvutiListRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="token" type="xs:string"/>
+						<xs:element minOccurs="0" name="hasRelatedOpsystems">
+						  <xs:simpleType>
+							<xs:restriction base="xs:string">
+							  <xs:pattern value="jah|ei"/>
+							</xs:restriction>
+						  </xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getArvutiListResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" maxOccurs="unbounded" name="arvuti" type="tns:arvutiType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getArvutiOpsysListRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="token" type="xs:string"/>
+						<xs:element name="arvutiId" type="xs:integer"/>
+						<xs:element name="name" type="xs:string"/>
+						<xs:element minOccurs="1" maxOccurs="1" name="requestID" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getArvutiOpsysListResponse" type="tns:arvutiOpsysListType"/>
+			<xs:element name="addArvutiOpsysRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="token" type="xs:string"/>
+						<xs:element name="arvutiId" type="xs:integer"/>
+						<xs:element name="opsysId" type="xs:integer"/>
+						<xs:element name="quantity" type="xs:double"/>
+						<xs:element minOccurs="0" maxOccurs="1" name="version">
+							<xs:simpleType>
+								<xs:restriction base="xs:decimal">
+									<xs:fractionDigits value="2"/>
+								</xs:restriction>
+							 </xs:simpleType>
+						</xs:element>
+						<xs:element minOccurs="1" maxOccurs="1" name="requestID" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="addArvutiOpsysResponse" type="tns:arvutiOpsysType"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="getOpsysMessageRequest">
+		<wsdl:part name="parameter" element="tns:getOpsysRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getOpsysMessageResponse">
+		<wsdl:part name="parameter" element="tns:getOpsysResponse"/>
+	</wsdl:message>
+	<wsdl:message name="addOpsysMessageRequest">
+		<wsdl:part name="parameter" element="tns:addOpsysRequest"/>
+	</wsdl:message>
+	<wsdl:message name="addOpsysMessageResponse">
+		<wsdl:part name="parameter" element="tns:addOpsysResponse"/>
+	</wsdl:message>
+	<wsdl:message name="getOpsysListMessageRequest">
+		<wsdl:part name="parameter" element="tns:getOpsysListRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getOpsysListMessageResponse">
+		<wsdl:part name="parameter" element="tns:getOpsysListResponse"/>
+	</wsdl:message>
+	<wsdl:message name="getArvutiMessageRequest">
+		<wsdl:part name="parameter" element="tns:getArvutiRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getArvutiMessageResponse">
+		<wsdl:part name="parameter" element="tns:getArvutiResponse"/>
+	</wsdl:message>
+	<wsdl:message name="addArvutiMessageRequest">
+		<wsdl:part name="parameter" element="tns:addArvutiRequest"/>
+	</wsdl:message>
+	<wsdl:message name="addArvutiMessageResponse">
+		<wsdl:part name="parameter" element="tns:addArvutiResponse"/>
+	</wsdl:message>
+	<wsdl:message name="getArvutiListMessageRequest">
+		<wsdl:part name="parameter" element="tns:getArvutiListRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getArvutiListMessageResponse">
+		<wsdl:part name="parameter" element="tns:getArvutiListResponse"/>
+	</wsdl:message>
+	<wsdl:message name="getArvutiOpsysListMessageRequest">
+		<wsdl:part name="parameter" element="tns:getArvutiOpsysListRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getArvutiOpsysListMessageResponse">
+		<wsdl:part name="parameter" element="tns:getArvutiOpsysListResponse"/>
+	</wsdl:message>
+	<wsdl:message name="addArvutiOpsysMessageRequest">
+		<wsdl:part name="parameter" element="tns:addArvutiOpsysRequest"/>
+	</wsdl:message>
+	<wsdl:message name="addArvutiOpsysMessageResponse">
+		<wsdl:part name="parameter" element="tns:addArvutiOpsysResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="ArvutiPortType">
+		<wsdl:operation name="getOpsys">
+			<wsdl:input message="tns:getOpsysMessageRequest"/>
+			<wsdl:output message="tns:getOpsysMessageResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="addOpsys">
+			<wsdl:input message="tns:addOpsysMessageRequest"/>
+			<wsdl:output message="tns:addOpsysMessageResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getOpsysList">
+			<wsdl:input message="tns:getOpsysListMessageRequest"/>
+			<wsdl:output message="tns:getOpsysListMessageResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getArvuti">
+			<wsdl:input message="tns:getArvutiMessageRequest"/>
+			<wsdl:output message="tns:getArvutiMessageResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="addArvuti">
+			<wsdl:input message="tns:addArvutiMessageRequest"/>
+			<wsdl:output message="tns:addArvutiMessageResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getArvutiList">
+			<wsdl:input message="tns:getArvutiListMessageRequest"/>
+			<wsdl:output message="tns:getArvutiListMessageResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getArvutiOpsysList">
+			<wsdl:input message="tns:getArvutiOpsysListMessageRequest"/>
+			<wsdl:output message="tns:getArvutiOpsysListMessageResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="addArvutiOpsys">
+			<wsdl:input message="tns:addArvutiOpsysMessageRequest"/>
+			<wsdl:output message="tns:addArvutiOpsysMessageResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="ArvutiBinding" type="tns:ArvutiPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getOpsys">
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="addOpsys">
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getOpsysList">
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>	
+		<wsdl:operation name="getArvuti">
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="addArvuti">
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getArvutiList">
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>	
+		<wsdl:operation name="getArvutiOpsysList">
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="addArvutiOpsys">
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="ArvutiService">
+		<wsdl:port name="ArvutiPort" binding="tns:ArvutiBinding">
+			<soap:address location="Empty"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

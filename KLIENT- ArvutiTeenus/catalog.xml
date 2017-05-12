@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://e7270:8080/ArvutiWebApplication2/ArvutiService?wsdl" uri="xml-resources/web-service-references/ArvutiService/wsdl/e7270_8080/ArvutiWebApplication2/ArvutiService.wsdl"/>
+</catalog>
