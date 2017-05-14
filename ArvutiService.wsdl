@@ -11,22 +11,17 @@
 		<xs:schema  targetNamespace="http://www.ttu.ee/idu0075/2015/ws/arvuti" elementFormDefault="qualified">
 			<xs:complexType name ="opsysType">
 				<xs:sequence>
-					<xs:element name="id" type="xs:integer"/>
-					<xs:element name="name" type="xs:string"/>
-					<xs:element name="code" type="xs:string"/>
+					<xs:element name="opsysID" type="xs:integer"/>
+					<xs:element name="developer" type="xs:string"/>
+						<xs:element name="name" type="xs:string"/>
+						<xs:element name="release" type="xs:string"/>
+						<xs:element minOccurs="1" maxOccurs="1" name="requestID" type="xs:string"/>
 				</xs:sequence>
 			</xs:complexType>
 			<xs:complexType name ="arvutiOpsysType">
 				<xs:sequence>
 					<xs:element name="opsys" type="tns:opsysType"/>
-					<xs:element name="quantity" type="xs:double"/>
-					<xs:element minOccurs="0" maxOccurs="1" name="version">
-							<xs:simpleType>
-								<xs:restriction base="xs:decimal">
-									<xs:fractionDigits value="2"/>
-								</xs:restriction>
-							 </xs:simpleType>
-					</xs:element>
+					<xs:element name="quantity" type="xs:integer"/>
 				</xs:sequence>
 			</xs:complexType>
 			<xs:complexType name ="arvutiOpsysListType">
@@ -36,43 +31,45 @@
 			</xs:complexType>
 			<xs:complexType name ="arvutiType">
 				<xs:sequence>
-					<xs:element name="id" type="xs:integer"/>
+					<xs:element name="arvutiID" type="xs:integer"/>
 					<xs:element name="arvutiNo" type="xs:string"/>
 					<xs:element name="userName" type="xs:string"/>
 					<xs:element name="arvutiOpsysList" type="tns:arvutiOpsysListType"/>
 				</xs:sequence>
 			</xs:complexType>
-			<xs:element name="getOpsysRequest">
-				<xs:complexType>
-					<xs:sequence>
-						<xs:element name="token" type="xs:string"/>
-						<xs:element name="id" type="xs:integer"/>
-					</xs:sequence>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="getOpsysResponse" type="tns:opsysType"/>
+			
 			<xs:element name="addOpsysRequest">
 				<xs:complexType>
 					<xs:sequence>
 						<xs:element name="token" type="xs:string"/>
+						<xs:element name="developer" type="xs:string"/>
 						<xs:element name="name" type="xs:string"/>
-						<xs:element name="code" type="xs:string"/>
+						<xs:element name="release" type="xs:string"/>
+						<xs:element minOccurs="1" maxOccurs="1" name="requestID" type="xs:string"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="addOpsysResponse" type="tns:opsysType"/>
+			
+			<xs:element name="getOpsysRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="token" type="xs:string"/>
+						<xs:element name="opsysID" type="xs:integer"/>
+						<xs:element minOccurs="1" maxOccurs="1" name="requestID" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getOpsysResponse" type="tns:opsysType"/>
+			
 			<xs:element name="getOpsysListRequest">
 				<xs:complexType>
 					<xs:sequence>
 						<xs:element name="token" type="xs:string"/>
-						<xs:element name="name" type="xs:string"/>
-						<xs:element minOccurs="0" maxOccurs="1" name="version">
-							<xs:simpleType>
-								<xs:restriction base="xs:decimal">
-									<xs:fractionDigits value="2"/>
-								</xs:restriction>
-							 </xs:simpleType>
-						</xs:element>
+						<xs:element minOccurs="0" maxOccurs="1" name="developer" type="xs:string"/>
+						<xs:element minOccurs="0" maxOccurs="1" name="name" type="xs:string"/>
+						<xs:element minOccurs="0" maxOccurs="1" name="release" type="xs:string"/>
+						<xs:element minOccurs="1" maxOccurs="1" name="requestID" type="xs:string"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -83,25 +80,29 @@
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="getArvutiRequest">
-				<xs:complexType>
-					<xs:sequence>
-						<xs:element name="token" type="xs:string"/>
-						<xs:element name="id" type="xs:integer"/>
-					</xs:sequence>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="getArvutiResponse" type="tns:arvutiType"/>
 			<xs:element name="addArvutiRequest">
 				<xs:complexType>
 					<xs:sequence>
 						<xs:element name="token" type="xs:string"/>
 						<xs:element name="arvutiNo" type="xs:string"/>
 						<xs:element name="userName" type="xs:string"/>
+						<xs:element minOccurs="1" maxOccurs="1" name="requestID" type="xs:string"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="addArvutiResponse" type="tns:arvutiType"/>
+			
+			<xs:element name="getArvutiRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="token" type="xs:string"/>
+						<xs:element name="arvutiID" type="xs:integer"/>
+						<xs:element minOccurs="1" maxOccurs="1" name="requestID" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getArvutiResponse" type="tns:arvutiType"/>
+			
 			<xs:element name="getArvutiListRequest">
 				<xs:complexType>
 					<xs:sequence>
@@ -113,6 +114,7 @@
 							</xs:restriction>
 						  </xs:simpleType>
 						</xs:element>
+						<xs:element minOccurs="1" maxOccurs="1" name="requestID" type="xs:string"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -127,8 +129,7 @@
 				<xs:complexType>
 					<xs:sequence>
 						<xs:element name="token" type="xs:string"/>
-						<xs:element name="arvutiId" type="xs:integer"/>
-						<xs:element name="name" type="xs:string"/>
+						<xs:element name="arvutiID" type="xs:integer"/>
 						<xs:element minOccurs="1" maxOccurs="1" name="requestID" type="xs:string"/>
 					</xs:sequence>
 				</xs:complexType>
@@ -138,16 +139,9 @@
 				<xs:complexType>
 					<xs:sequence>
 						<xs:element name="token" type="xs:string"/>
-						<xs:element name="arvutiId" type="xs:integer"/>
-						<xs:element name="opsysId" type="xs:integer"/>
-						<xs:element name="quantity" type="xs:double"/>
-						<xs:element minOccurs="0" maxOccurs="1" name="version">
-							<xs:simpleType>
-								<xs:restriction base="xs:decimal">
-									<xs:fractionDigits value="2"/>
-								</xs:restriction>
-							 </xs:simpleType>
-						</xs:element>
+						<xs:element name="arvutiID" type="xs:integer"/>
+						<xs:element name="opsysID" type="xs:integer"/>
+						<xs:element name="quantity" type="xs:integer"/>
 						<xs:element minOccurs="1" maxOccurs="1" name="requestID" type="xs:string"/>
 					</xs:sequence>
 				</xs:complexType>
