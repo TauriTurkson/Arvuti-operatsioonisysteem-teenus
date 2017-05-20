@@ -126,7 +126,7 @@
 						<xs:element minOccurs="0" maxOccurs="1" name="arvuti" type="tns:arvutiType"/>
 					</xs:sequence>
 				</xs:complexType>
-			</xs:element>
+			</xs:element>S
 			<xs:element name="getArvutidWithParametersRequest">
 				<xs:complexType>
 					<xs:sequence>

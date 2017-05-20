@@ -1,15 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
-	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
-	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
-	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" 
-	xmlns:tns="http://www.ttu.ee/idu0075/2015/ws/arvuti" 
-	targetNamespace="http://www.ttu.ee/idu0075/2015/ws/arvuti">
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.2-b608 (trunk-7979; 2015-01-21T12:50:19+0000) JAXWS-RI/2.2.11-b150120.1832 JAXWS-API/2.2.12 JAXB-RI/2.2.12-b141219.1637 JAXB-API/2.2.13-b141020.1521 svn-revision#unknown. --><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.ttu.ee/idu0075/2015/ws/arvuti" targetNamespace="http://www.ttu.ee/idu0075/2015/ws/arvuti">
 	<wsdl:types>
-		<xs:schema  targetNamespace="http://www.ttu.ee/idu0075/2015/ws/arvuti" elementFormDefault="qualified">
-			<xs:complexType name ="opsysType">
+		<xs:schema targetNamespace="http://www.ttu.ee/idu0075/2015/ws/arvuti" elementFormDefault="qualified">
+			<xs:complexType name="opsysType">
 				<xs:sequence>
 					<xs:element name="opsysID" type="xs:integer"/>
 					<xs:element name="developer" type="xs:string"/>
@@ -17,7 +9,7 @@
 						<xs:element name="release" type="tns:releaseType"/>
 				</xs:sequence>
 			</xs:complexType>
-			<xs:complexType name ="arvutiType">
+			<xs:complexType name="arvutiType">
 				<xs:sequence>
 					<xs:element name="arvutiID" type="xs:integer"/>
 					<xs:element name="userName" type="xs:string"/>
@@ -126,7 +118,7 @@
 						<xs:element minOccurs="0" maxOccurs="1" name="arvuti" type="tns:arvutiType"/>
 					</xs:sequence>
 				</xs:complexType>
-			</xs:element>
+			</xs:element>S
 			<xs:element name="getArvutidWithParametersRequest">
 				<xs:complexType>
 					<xs:sequence>
@@ -333,7 +325,7 @@
 	</wsdl:binding>
 	<wsdl:service name="ArvutiService">
 		<wsdl:port name="ArvutiPort" binding="tns:ArvutiBinding">
-			<soap:address location="Empty"/>
+			<soap:address location="http://e7270:8080/ArvutiOperatsioonisysteemTeenus/ArvutiService"/>
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>
